@@ -10,7 +10,7 @@ Icinga/Nagios plugin which checks the current weather warnings by given cell-id
 ## Example:
 
 ```bash
-lukas@ubuntu:~/check_DWDwarnings$ ./check_DWDwarnings -s 913076001
+lukas@ubuntu:~$ ./check_DWDwarnings -s 913076001
 CRITICAL - Amtliche WARNUNG vor STURMBÖEN
 Es treten Sturmböen mit Geschwindigkeiten um 65 km/h (18m/s, 35kn, Bft 8) anfangs aus südwestlicher, später aus westlicher Richtung auf. In Schauernähe sowie in exponierten Lagen muss mit Sturmböen bis 80 km/h (22m/s, 44kn, Bft 9) gerechnet werden.
 ```
