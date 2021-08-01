@@ -36,25 +36,25 @@ func main() {
 	// Unmarshal or Decode the JSON to the interface.
 	json.Unmarshal([]byte(s), &main_hash)
 
-	// check if warning for stationID is available
-	if (main_hash["warnings"].(map[string]interface{})[*stationID] == nil) {
-		ExitOK()
-	} else {
-		level := fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[*stationID].([]interface{})[0].(map[string]interface{})["level"])
+        // check if a warning for stationID is available
+        if _, ok := main_hash["warnings"].(map[string]interface{})[*stationID]; ok {
 
-		if (level == "2") {
-			headline := fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[*stationID].([]interface{})[0].(map[string]interface{})["headline"])
-			description := fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[*stationID].([]interface{})[0].(map[string]interface{})["description"])
-			ExitWarning(headline, description)
-		} else if (level == "3") {
-			headline := fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[*stationID].([]interface{})[0].(map[string]interface{})["headline"])
-			description := fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[*stationID].([]interface{})[0].(map[string]interface{})["description"])
-			ExitCritical(headline, description)
-		} else {
-			ExitUnknown("Couldn't determine warning level!")
-		}
+                level := fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[*stationID].([]interface{})[0].(map[string]interface{})["level"])
 
-	}
+                if (level == "3" || level == "2") {
+                        headline := fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[*stationID].([]interface{})[0].(map[string]interface{})["headline"])
+                        description := fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[*stationID].([]interface{})[0].(map[string]interface{})["description"])
+                        ExitWarning(headline, description)
+                } else if (level == "4") {
+                        headline := fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[*stationID].([]interface{})[0].(map[string]interface{})["headline"])
+                        description := fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[*stationID].([]interface{})[0].(map[string]interface{})["description"])
+                        ExitCritical(headline, description)
+                } else {
+                        ExitUnknown("Couldn't determine warning level!")
+                }
+        } else {
+                ExitOK()
+        }
 }
 
 func http_request() (arr_resp []byte){
