@@ -36,6 +36,6 @@ object Service "DWD Warnungen: Stadt Regensburg" {
 ```
 
 ## Cell-IDs
-Here you can download a csv-file which contains every cell-id in Germany: https://www.dwd.de/DE/leistungen/opendata/help/warnungen/cap_warncellids_csv.csv
+Here you can download a csv-file which contains every cell-id in Germany: https://www.dwd.de/DE/leistungen/opendata/help/warnungen/cap_warncellids_csv.html
 
 
