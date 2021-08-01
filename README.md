@@ -31,7 +31,7 @@ object Service "DWD Warnungen: Stadt Regensburg" {
   check_command = "check_DWDwarnings"
   import "generic-service"
   host_name = "Pi 4"
-  vars.cell_ID = "109362000
+  vars.cell_ID = "109362000"
 }
 ```
 
