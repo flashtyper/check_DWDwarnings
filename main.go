@@ -41,16 +41,12 @@ func main() {
 
                 level := fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[*stationID].([]interface{})[0].(map[string]interface{})["level"])
 
-                if (level == "3" || level == "2") {
-                        headline := fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[*stationID].([]interface{})[0].(map[string]interface{})["headline"])
-                        description := fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[*stationID].([]interface{})[0].(map[string]interface{})["description"])
-                        ExitWarning(headline, description)
+                if (level == "1" || level == "2" || level == "3") {
+                        ExitWarning(getData(main_hash, *stationID))
                 } else if (level == "4") {
-                        headline := fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[*stationID].([]interface{})[0].(map[string]interface{})["headline"])
-                        description := fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[*stationID].([]interface{})[0].(map[string]interface{})["description"])
-                        ExitCritical(headline, description)
+                        ExitCritical(getData(main_hash, *stationID))
                 } else {
-                        ExitUnknown("Couldn't determine warning level!")
+                        ExitWarning(getData(main_hash, *stationID))
                 }
         } else {
                 ExitOK()
@@ -83,7 +79,7 @@ func ExitUnknown (reason string) {
         os.Exit(3)
 }
 func ExitOK () {
-        fmt.Println("OK - No warnings found")
+        fmt.Println("OK - No warning found")
         os.Exit(0)
 }
 func ExitCritical (headline string, description string) {
@@ -93,4 +89,9 @@ func ExitCritical (headline string, description string) {
 func ExitWarning (headline string, description string) {
         fmt.Printf("%s %s %s %s", "WARNING -", headline, "\n", description)
         os.Exit(1)
+}
+func getData (main_hash map[string]interface{}, stationID string) (headline string, description string) {
+        headline = fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[stationID].([]interface{})[0].(map[string]interface{})["headline"])
+        description = fmt.Sprintf("%v", main_hash["warnings"].(map[string]interface{})[stationID].([]interface{})[0].(map[string]interface{})["description"])
+        return
 }
