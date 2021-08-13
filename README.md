@@ -21,7 +21,7 @@ Just move the file into your plugin directory and add a new command and service 
 Maybe something like this: 
 
 ```javascript
-object CheckCommand "check_twitchuser" {
+object CheckCommand "check_DWDwarnings" {
   command = [ CustomPluginDir + "check_DWDwarnings" ]
   arguments = {
     "-s" = "$cell_ID$"
