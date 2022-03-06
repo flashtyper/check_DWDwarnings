@@ -83,11 +83,11 @@ func ExitOK () {
         os.Exit(0)
 }
 func ExitCritical (headline string, description string) {
-        fmt.Printf("%s %s %s %s", "CRITICAL -", headline, "\n", description)
+        fmt.Printf("%s %s %s%s", "CRITICAL -", headline, "\n", description)
         os.Exit(2)
 }
 func ExitWarning (headline string, description string) {
-        fmt.Printf("%s %s %s %s", "WARNING -", headline, "\n", description)
+        fmt.Printf("%s %s %s%s", "WARNING -", headline, "\n", description)
         os.Exit(1)
 }
 func getData (main_hash map[string]interface{}, stationID string) (headline string, description string) {
