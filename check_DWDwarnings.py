@@ -1,7 +1,15 @@
+#!/usr/local/bin/python3.11
+
 import requests as rq
 import sys
 import argparse
 import json
+from datetime import datetime
+
+
+# returns the current timestamp formattet like: 01.03.2024 15:21
+def ts(ts: datetime) -> datetime:
+    return ts.strftime("%d.%m.%Y %H:%M")
 
 def http_get() -> str:
     url: str = "https://www.dwd.de/DWD/warnungen/warnapp/json/warnings.json"
@@ -60,9 +68,9 @@ def main() -> None:
             final_string: str = ""
             highest_level: int = 0
             for warning in station_warning["warnings"][str(args.station_id)]:
-                final_string += warning["headline"] + "\n" + warning["description"] + "\n"
+                final_string += warning["headline"] + "\n" + warning["description"] + "\nVon " + ts(datetime.fromtimestamp(warning["start"] / 1e3)) + " bis " + ts(datetime.fromtimestamp(warning["end"] / 1e3)) + "\n\n"
                 highest_level = max(highest_level, warning["level"])
-            if highest_level == 4:
+            if highest_level >= 4:
                 exit_critical(final_string)
             else:
                 exit_warning(final_string)
